@@ -261,7 +261,7 @@ export default function Landing() {
               <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm">
                 <div className="aspect-[4/3] overflow-hidden">
                   <img
-                    src="/assets/rename.jpg"
+                    src="/assets/basket.jpg"
                     alt="Woven Basket"
                     className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
                   />
