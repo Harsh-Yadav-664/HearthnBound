@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, ChevronDown, Scissors, PenTool, ChevronUp } from "lucide-react";
+import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, ChevronDown, Scissors, PenTool } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
@@ -14,40 +14,7 @@ export default function Landing() {
   });
 
   // Add: global scroll arrow visibility + next-section logic
-  const [atBottom, setAtBottom] = useState(false);
-  useEffect(() => {
-    const onScroll = () => {
-      const nearBottom =
-        window.innerHeight + window.scrollY >=
-        document.body.scrollHeight - 10;
-      setAtBottom(nearBottom);
-    };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  const handleNextSection = () => {
-    const ids = ["how-it-works", "live-demo", "future-vision"] as const;
-    const sections = ids
-      .map((id) => document.getElementById(id))
-      .filter((el): el is HTMLElement => !!el);
-
-    const currentY = window.scrollY;
-    const next = sections.find((el) => el.offsetTop > currentY + 10);
-
-    if (next) {
-      next.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      // Already past last section -> scroll to bottom
-      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-    }
-  };
-
-  // Add: scroll-to-top when at bottom
-  const handleScrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  // REMOVED: atBottom state, scroll listener, and next-section/top handlers
 
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
@@ -188,6 +155,18 @@ export default function Landing() {
         >
           <Brush className="h-12 w-12" />
         </motion.div>
+
+        {/* Hero-only scroll-down arrow */}
+        <motion.a
+          href="#how-it-works"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 0.95, y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-6 left-1/2 -translate-x-1/2 rounded-full p-2 text-foreground/80 hover:text-foreground bg-background/70 border border-border/70 backdrop-blur-md"
+          aria-label="Scroll to How It Works"
+        >
+          <ChevronDown className="h-6 w-6" />
+        </motion.a>
       </motion.section>
 
       {/* How It Works Section */}
@@ -420,7 +399,7 @@ export default function Landing() {
                 />
               </div>
               <p className="font-serif italic text-sm text-center text-muted-foreground p-4">
-                A preview of the interactive 3D gallery experience.
+                This feature will allow artisans to create and customize a stunning, photorealistic 3D virtual gallery. Customers can 'walk through' the space from any device, interacting with the art in a deeply personal way. It bridges the gap between digital and physical, creating an emotional connection that static images cannot and opening the artisan to a global audience.
               </p>
             </motion.div>
 
@@ -439,7 +418,7 @@ export default function Landing() {
                 />
               </div>
               <p className="font-serif italic text-sm text-center text-muted-foreground p-4">
-                Dynamic visual narratives for every artisan&apos;s journey.
+                We will harness generative AI to transform an artisan's personal story and creative process into a short, captivating animated video. This brings their 'About Me' page to life, allowing them to share their passion and journey in a format that creates a powerful, memorable bond with potential buyers.
               </p>
             </motion.div>
 
@@ -458,7 +437,7 @@ export default function Landing() {
                 />
               </div>
               <p className="font-serif italic text-sm text-center text-muted-foreground p-4">
-                Verifiable proof of origin and unique artistry.
+                To combat counterfeits and add significant value, we will provide AI-generated Certificates of Authenticity. Each certificate will feature the unique story of the piece, the artisan's signature, and a verifiable, blockchain-ready identifier, providing permanent, trustworthy proof of origin and artistry for every creation.
               </p>
             </motion.div>
           </div>
@@ -479,32 +458,6 @@ export default function Landing() {
           </div>
         </div>
       </footer>
-
-      {!atBottom && (
-        <motion.button
-          onClick={handleNextSection}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 0.95, y: [0, 6, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          className="fixed z-50 bottom-6 left-1/2 -translate-x-1/2 rounded-full p-2 text-foreground/80 hover:text-foreground bg-background/70 border border-border/70 backdrop-blur-md"
-          aria-label="Scroll to next section"
-        >
-          <ChevronDown className="h-6 w-6" />
-        </motion.button>
-      )}
-
-      {atBottom && (
-        <motion.button
-          onClick={handleScrollTop}
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 0.95, y: [6, 0, 6] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          className="fixed z-50 bottom-6 left-1/2 -translate-x-1/2 rounded-full p-2 text-foreground/80 hover:text-foreground bg-background/70 border border-border/70 backdrop-blur-md"
-          aria-label="Scroll to top"
-        >
-          <ChevronUp className="h-6 w-6" />
-        </motion.button>
-      )}
     </div>
   );
 }
