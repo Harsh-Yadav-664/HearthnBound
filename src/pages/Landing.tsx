@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, Box, Clapperboard } from "lucide-react";
+import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, Clapperboard, QrCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
@@ -352,22 +352,23 @@ export default function Landing() {
             </h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm p-8"
+              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm overflow-hidden"
             >
-              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                <Box className="h-7 w-7 text-primary" />
+              <div className="aspect-[16/9] overflow-hidden">
+                <img
+                  src="/assets/room.jpg"
+                  alt="Immersive 3D gallery preview"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
               </div>
-              <h3 className="font-sans font-semibold text-xl text-foreground mb-3">
-                Immersive 3D Galleries
-              </h3>
-              <p className="font-serif text-muted-foreground leading-relaxed">
-                Soon, artisans will be able to showcase their work in a beautiful, fully interactive virtual gallery that customers can walk through from anywhere in the world.
+              <p className="font-serif italic text-sm text-center text-muted-foreground p-4">
+                A preview of the interactive 3D gallery experience.
               </p>
             </motion.div>
 
@@ -386,6 +387,24 @@ export default function Landing() {
               </h3>
               <p className="font-serif text-muted-foreground leading-relaxed">
                 We're developing a feature to transform an artist's personal journey into a captivating animated video, bringing their story to life and creating a deeper connection with buyers.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm p-8"
+            >
+              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                <QrCode className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="font-sans font-semibold text-xl text-foreground mb-3">
+                AI Authenticity Certificates
+              </h3>
+              <p className="font-serif text-muted-foreground leading-relaxed">
+                Build trust and add value with AI-generated Certificates of Authenticity. Each certificate includes the craft's unique story and a generative art pattern, making every piece verifiably one-of-a-kind.
               </p>
             </motion.div>
           </div>
