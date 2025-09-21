@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, Clapperboard, QrCode } from "lucide-react";
+import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, ChevronDown, Scissors, PenTool } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
@@ -63,7 +63,7 @@ export default function Landing() {
                 className="font-sans"
               >
                 <a href="#how-it-works">
-                  Get Started
+                  How It Works
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </a>
               </Button>
@@ -152,11 +152,28 @@ export default function Landing() {
         >
           <Brush className="h-12 w-12" />
         </motion.div>
+        
+        <motion.a
+          href="#how-it-works"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 0.8, y: [0, 6, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-foreground/60 hover:text-foreground/80"
+          aria-label="Scroll down to How It Works"
+        >
+          <ChevronDown className="h-8 w-8" />
+        </motion.a>
       </motion.section>
 
       {/* How It Works Section */}
-      <section id="how-it-works" className="py-24 bg-muted/30">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="how-it-works" className="py-24 bg-muted/30 relative">
+        {/* Subtle background tool icons */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <Brush className="absolute -top-6 left-8 h-20 w-20 text-foreground/5" />
+          <Hammer className="absolute top-1/2 -translate-y-1/2 -left-6 h-24 w-24 text-foreground/5" />
+          <PenTool className="absolute bottom-8 right-12 h-20 w-20 text-foreground/5" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -214,8 +231,13 @@ export default function Landing() {
       </section>
 
       {/* Live Demo Section */}
-      <section id="live-demo" className="py-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="live-demo" className="py-24 relative">
+        {/* Subtle background tool icons */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <Scissors className="absolute -top-4 right-10 h-16 w-16 text-foreground/5 rotate-12" />
+          <Brush className="absolute bottom-6 left-10 h-24 w-24 text-foreground/5 -rotate-6" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -338,8 +360,13 @@ export default function Landing() {
       </section>
 
       {/* Our Future Vision Section */}
-      <section className="py-24 bg-muted/20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-24 bg-muted/20 relative">
+        {/* Subtle background tool icons */}
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <Hammer className="absolute top-10 left-1/3 h-20 w-20 text-foreground/5 -rotate-12" />
+          <PenTool className="absolute bottom-8 right-1/4 h-16 w-16 text-foreground/5 rotate-6" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -377,16 +404,17 @@ export default function Landing() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               viewport={{ once: true }}
-              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm p-8"
+              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm overflow-hidden"
             >
-              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                <Clapperboard className="h-7 w-7 text-primary" />
+              <div className="aspect-[16/9] overflow-hidden">
+                <img
+                  src="/assets/animation.jpg"
+                  alt="AI-Animated Stories preview"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
               </div>
-              <h3 className="font-sans font-semibold text-xl text-foreground mb-3">
-                AI-Animated Stories
-              </h3>
-              <p className="font-serif text-muted-foreground leading-relaxed">
-                We're developing a feature to transform an artist's personal journey into a captivating animated video, bringing their story to life and creating a deeper connection with buyers.
+              <p className="font-serif italic text-sm text-center text-muted-foreground p-4">
+                Dynamic visual narratives for every artisan&apos;s journey.
               </p>
             </motion.div>
 
@@ -395,16 +423,17 @@ export default function Landing() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true }}
-              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm p-8"
+              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm overflow-hidden"
             >
-              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
-                <QrCode className="h-7 w-7 text-primary" />
+              <div className="aspect-[16/9] overflow-hidden">
+                <img
+                  src="/assets/certificate.jpg"
+                  alt="AI Authenticity Certificates preview"
+                  className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                />
               </div>
-              <h3 className="font-sans font-semibold text-xl text-foreground mb-3">
-                AI Authenticity Certificates
-              </h3>
-              <p className="font-serif text-muted-foreground leading-relaxed">
-                Build trust and add value with AI-generated Certificates of Authenticity. Each certificate includes the craft's unique story and a generative art pattern, making every piece verifiably one-of-a-kind.
+              <p className="font-serif italic text-sm text-center text-muted-foreground p-4">
+                Verifiable proof of origin and unique artistry.
               </p>
             </motion.div>
           </div>
@@ -420,7 +449,7 @@ export default function Landing() {
               <span className="font-sans font-semibold text-foreground">CraftAI</span>
             </div>
             <p className="font-serif text-sm text-muted-foreground text-center md:text-right">
-              A Generative AI Hackathon Project. Empowering Artisans Worldwide.
+              Empowering Artisans Worldwide.
             </p>
           </div>
         </div>
