@@ -48,13 +48,26 @@ export default function Landing() {
               <Palette className="h-8 w-8 text-primary" />
               <span className="font-sans font-bold text-xl text-foreground">CraftAI</span>
             </div>
-            <Button 
-              variant={isAuthenticated ? "default" : "outline"}
-              className="font-sans"
-            >
-              {isAuthenticated ? "Dashboard" : "Get Started"}
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
+            {isAuthenticated ? (
+              <Button 
+                variant="default"
+                className="font-sans"
+              >
+                Dashboard
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            ) : (
+              <Button 
+                asChild
+                variant="outline"
+                className="font-sans"
+              >
+                <a href="#how-it-works">
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </a>
+              </Button>
+            )}
           </div>
         </div>
       </motion.nav>
@@ -96,11 +109,14 @@ export default function Landing() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <Button 
+              asChild
               size="lg" 
               className="font-sans text-lg px-8 py-6 bg-primary hover:bg-primary/90 text-primary-foreground"
             >
-              See the Magic
-              <Sparkles className="ml-2 h-5 w-5" />
+              <a href="#live-demo">
+                See the Magic
+                <Sparkles className="ml-2 h-5 w-5" />
+              </a>
             </Button>
           </motion.div>
         </div>
@@ -139,7 +155,7 @@ export default function Landing() {
       </motion.section>
 
       {/* How It Works Section */}
-      <section className="py-24 bg-muted/30">
+      <section id="how-it-works" className="py-24 bg-muted/30">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -198,7 +214,7 @@ export default function Landing() {
       </section>
 
       {/* Live Demo Section */}
-      <section className="py-24">
+      <section id="live-demo" className="py-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
