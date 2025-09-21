@@ -214,44 +214,109 @@ export default function Landing() {
               See how it works with these examples. (In our prototype, these are pre-loaded examples)
             </p>
           </motion.div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
-            {galleryItems.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="hover-3d"
-              >
-                <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm">
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img 
-                      src={item.image} 
-                      alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="font-sans font-semibold text-lg text-foreground mb-2">
-                      {item.title}
-                    </h3>
-                    <p className="font-serif text-muted-foreground text-sm">
-                      {item.description}
+            {/* Card 1: Pottery */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="hover-3d"
+            >
+              <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src="/assets/pottery.jpg"
+                    alt="Handcrafted Pottery"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  />
+                </div>
+                <CardContent className="p-6 space-y-4">
+                  <h3 className="font-sans font-semibold text-lg text-foreground">
+                    Handcrafted Pottery
+                  </h3>
+                  <div className="space-y-2">
+                    <p className="font-serif text-sm text-muted-foreground leading-relaxed">
+                      Crafted from locally sourced clay, this vessel carries the warmth of the earth. Each curve is shaped by hand, echoing ancient techniques passed down through generations, making it not just a pot, but a piece of history for your home.
                     </p>
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="mt-4 font-sans"
-                    >
-                      Generate Story
-                      <ArrowRight className="ml-2 h-3 w-3" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+                    <div className="rounded-md border border-border/70 bg-muted/30 p-3">
+                      <p className="font-serif text-xs text-foreground">
+                        Social Media Snippet: From my hands to your home. ✨ This earth-fired ceramic piece is finally ready. #HandmadePottery #CeramicArt #ShopLocal
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Card 2: Woven Basket */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              viewport={{ once: true }}
+              className="hover-3d"
+            >
+              <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src="/assets/rename.jpg"
+                    alt="Woven Basket"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  />
+                </div>
+                <CardContent className="p-6 space-y-4">
+                  <h3 className="font-sans font-semibold text-lg text-foreground">
+                    Woven Basket
+                  </h3>
+                  <div className="space-y-2">
+                    <p className="font-serif text-sm text-muted-foreground leading-relaxed">
+                      Woven with over 3,000 individual strands of sustainably harvested seagrass, this basket is a testament to patience and tradition. It's strong enough for a market run and beautiful enough to be a centerpiece.
+                    </p>
+                    <div className="rounded-md border border-border/70 bg-muted/30 p-3">
+                      <p className="font-serif text-xs text-foreground">
+                        Social Media Snippet: It's all in the details. 🌿 Took over 40 hours to weave this beauty. #WovenBasket #SustainableCraft #ArtisanMade
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+
+            {/* Card 3: Graffiti Art */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="hover-3d"
+            >
+              <Card className="overflow-hidden border-border/50 bg-card/80 backdrop-blur-sm">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src="/assets/painting.jpg"
+                    alt="Graffiti Art - Urban Bloom"
+                    className="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+                  />
+                </div>
+                <CardContent className="p-6 space-y-4">
+                  <h3 className="font-sans font-semibold text-lg text-foreground">
+                    Graffiti Art — "Urban Bloom"
+                  </h3>
+                  <div className="space-y-2">
+                    <p className="font-serif text-sm text-muted-foreground leading-relaxed">
+                      This piece, titled 'Urban Bloom,' uses a vibrant mixed-media technique to capture the chaotic beauty of a city wall in full expression. Each layer is an emotion, a feeling of life bursting forward.
+                    </p>
+                    <div className="rounded-md border border-border/70 bg-muted/30 p-3">
+                      <p className="font-serif text-xs text-foreground">
+                        Social Media Snippet: 'Urban Bloom' is alive! 🎨 I wanted to capture the electric energy of the street. #StreetArt #GraffitiArt #ModernArt
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
           </div>
         </div>
       </section>
