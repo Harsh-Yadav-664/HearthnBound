@@ -43,34 +43,42 @@ export default function Landing() {
       <motion.nav 
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className="fixed top-0 w-full z-50 bg-background/80 backdrop-blur-md border-b border-border"
+        className="fixed top-0 w-full z-[60] bg-background/80 backdrop-blur-md border-b border-border"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-2">
+            {/* Logo links to home */}
+            <a href="/" className="flex items-center space-x-2">
               <Palette className="h-8 w-8 text-primary" />
               <span className="font-sans font-bold text-xl text-foreground">Hearth & Bound</span>
-            </div>
-            {isAuthenticated ? (
-              <Button 
-                variant="default"
-                className="font-sans"
-              >
+            </a>
+
+            {/* Center/right nav links */}
+            <div className="hidden md:flex items-center gap-6">
+              <a href="/pricing" className="font-sans text-sm text-foreground/80 hover:text-foreground transition-colors">
+                Pricing
+              </a>
+              <a href="/dashboard" className="font-sans text-sm text-foreground/80 hover:text-foreground transition-colors">
                 Dashboard
-                <ArrowRight className="ml-2 h-4 w-4" />
-              </Button>
-            ) : (
-              <Button 
-                asChild
-                variant="outline"
-                className="font-sans"
-              >
-                <a href="#how-it-works">
-                  How It Works
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </a>
-              </Button>
-            )}
+              </a>
+              {/* Keep How It Works anchor for quick jump on homepage */}
+              <a href="#how-it-works" className="font-sans text-sm text-foreground/80 hover:text-foreground transition-colors">
+                How It Works
+              </a>
+            </div>
+
+            {/* Far-right button: Login (or Dashboard if authed) */}
+            <div className="flex items-center">
+              {isAuthenticated ? (
+                <Button asChild className="font-sans">
+                  <a href="/dashboard">Dashboard</a>
+                </Button>
+              ) : (
+                <Button asChild className="font-sans">
+                  <a href="/auth">Login</a>
+                </Button>
+              )}
+            </div>
           </div>
         </div>
       </motion.nav>
