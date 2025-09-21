@@ -3,7 +3,7 @@ import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, ChevronDo
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 
 export default function Landing() {
   const { isAuthenticated } = useAuth();
@@ -12,6 +12,37 @@ export default function Landing() {
     target: containerRef,
     offset: ["start start", "end start"]
   });
+
+  // Add: global scroll arrow visibility + next-section logic
+  const [atBottom, setAtBottom] = useState(false);
+  useEffect(() => {
+    const onScroll = () => {
+      const nearBottom =
+        window.innerHeight + window.scrollY >=
+        document.body.scrollHeight - 10;
+      setAtBottom(nearBottom);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const handleNextSection = () => {
+    const ids = ["how-it-works", "live-demo", "future-vision"] as const;
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => !!el);
+
+    const currentY = window.scrollY;
+    const next = sections.find((el) => el.offsetTop > currentY + 10);
+
+    if (next) {
+      next.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      // Already past last section -> scroll to bottom
+      window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    }
+  };
 
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
@@ -46,7 +77,7 @@ export default function Landing() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center space-x-2">
               <Palette className="h-8 w-8 text-primary" />
-              <span className="font-sans font-bold text-xl text-foreground">CraftAI</span>
+              <span className="font-sans font-bold text-xl text-foreground">Hearth & Bound</span>
             </div>
             {isAuthenticated ? (
               <Button 
@@ -152,17 +183,6 @@ export default function Landing() {
         >
           <Brush className="h-12 w-12" />
         </motion.div>
-        
-        <motion.a
-          href="#how-it-works"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 0.8, y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 text-foreground/60 hover:text-foreground/80"
-          aria-label="Scroll down to How It Works"
-        >
-          <ChevronDown className="h-8 w-8" />
-        </motion.a>
       </motion.section>
 
       {/* How It Works Section */}
@@ -246,7 +266,7 @@ export default function Landing() {
             className="text-center mb-16"
           >
             <h2 className="font-sans font-bold text-3xl sm:text-5xl text-foreground mb-4 tracking-tight">
-              Try CraftAI Live
+              Try Hearth & Bound Live
             </h2>
             <p className="font-serif text-lg text-muted-foreground max-w-2xl mx-auto">
               See how it works with these examples. (In our prototype, these are pre-loaded examples)
@@ -360,7 +380,7 @@ export default function Landing() {
       </section>
 
       {/* Our Future Vision Section */}
-      <section className="py-24 bg-muted/20 relative">
+      <section id="future-vision" className="py-24 bg-muted/20 relative">
         {/* Subtle background tool icons */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <Hammer className="absolute top-10 left-1/3 h-20 w-20 text-foreground/5 -rotate-12" />
@@ -446,7 +466,7 @@ export default function Landing() {
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
               <Palette className="h-6 w-6 text-primary" />
-              <span className="font-sans font-semibold text-foreground">CraftAI</span>
+              <span className="font-sans font-semibold text-foreground">Hearth & Bound</span>
             </div>
             <p className="font-serif text-sm text-muted-foreground text-center md:text-right">
               Empowering Artisans Worldwide.
@@ -454,6 +474,19 @@ export default function Landing() {
           </div>
         </div>
       </footer>
+
+      <motion.button
+        onClick={handleNextSection}
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 0.9, y: [0, 6, 0] }}
+        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 rounded-full p-2 text-foreground/70 hover:text-foreground/90 bg-background/60 border border-border/60 backdrop-blur-md ${
+          atBottom ? "hidden" : ""
+        }`}
+        aria-label="Scroll to next section"
+      >
+        <ChevronDown className="h-6 w-6" />
+      </motion.button>
     </div>
   );
 }
