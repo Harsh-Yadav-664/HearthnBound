@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush } from "lucide-react";
+import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, Box, Clapperboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
@@ -321,23 +321,58 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* Future Vision Section */}
-      <section className="py-24 bg-gradient-to-br from-primary/5 via-accent/5 to-secondary/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      {/* Our Future Vision Section */}
+      <section className="py-24 bg-muted/20">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
+            className="text-center mb-12"
           >
-            <h2 className="font-sans font-bold text-3xl sm:text-5xl text-foreground mb-8 tracking-tight">
-              The Future is Handcrafted
+            <h2 className="font-sans font-bold text-3xl sm:text-5xl text-foreground tracking-tight">
+              Our Future Vision
             </h2>
-            <p className="font-serif text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
-              Our roadmap includes immersive 3D virtual galleries for artisans and AI-powered animations 
-              that bring each artist's unique journey to life.
-            </p>
           </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm p-8"
+            >
+              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                <Box className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="font-sans font-semibold text-xl text-foreground mb-3">
+                Immersive 3D Galleries
+              </h3>
+              <p className="font-serif text-muted-foreground leading-relaxed">
+                Soon, artisans will be able to showcase their work in a beautiful, fully interactive virtual gallery that customers can walk through from anywhere in the world.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              viewport={{ once: true }}
+              className="hover-3d rounded-lg border border-border/60 bg-card/70 backdrop-blur-sm p-8"
+            >
+              <div className="w-14 h-14 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                <Clapperboard className="h-7 w-7 text-primary" />
+              </div>
+              <h3 className="font-sans font-semibold text-xl text-foreground mb-3">
+                AI-Animated Stories
+              </h3>
+              <p className="font-serif text-muted-foreground leading-relaxed">
+                We're developing a feature to transform an artist's personal journey into a captivating animated video, bringing their story to life and creating a deeper connection with buyers.
+              </p>
+            </motion.div>
+          </div>
         </div>
       </section>
 
