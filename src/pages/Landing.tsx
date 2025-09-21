@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, ChevronDown, Scissors, PenTool } from "lucide-react";
+import { ArrowRight, Upload, Sparkles, Share2, Palette, Hammer, Brush, ChevronDown, Scissors, PenTool, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
@@ -42,6 +42,11 @@ export default function Landing() {
       // Already past last section -> scroll to bottom
       window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
     }
+  };
+
+  // Add: scroll-to-top when at bottom
+  const handleScrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const heroY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
@@ -475,18 +480,31 @@ export default function Landing() {
         </div>
       </footer>
 
-      <motion.button
-        onClick={handleNextSection}
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 0.9, y: [0, 6, 0] }}
-        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-        className={`fixed bottom-6 left-1/2 -translate-x-1/2 rounded-full p-2 text-foreground/70 hover:text-foreground/90 bg-background/60 border border-border/60 backdrop-blur-md ${
-          atBottom ? "hidden" : ""
-        }`}
-        aria-label="Scroll to next section"
-      >
-        <ChevronDown className="h-6 w-6" />
-      </motion.button>
+      {!atBottom && (
+        <motion.button
+          onClick={handleNextSection}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 0.95, y: [0, 6, 0] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="fixed z-50 bottom-6 left-1/2 -translate-x-1/2 rounded-full p-2 text-foreground/80 hover:text-foreground bg-background/70 border border-border/70 backdrop-blur-md"
+          aria-label="Scroll to next section"
+        >
+          <ChevronDown className="h-6 w-6" />
+        </motion.button>
+      )}
+
+      {atBottom && (
+        <motion.button
+          onClick={handleScrollTop}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 0.95, y: [6, 0, 6] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="fixed z-50 bottom-6 left-1/2 -translate-x-1/2 rounded-full p-2 text-foreground/80 hover:text-foreground bg-background/70 border border-border/70 backdrop-blur-md"
+          aria-label="Scroll to top"
+        >
+          <ChevronUp className="h-6 w-6" />
+        </motion.button>
+      )}
     </div>
   );
 }
